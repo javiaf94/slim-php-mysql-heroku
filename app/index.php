@@ -31,16 +31,40 @@ $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 
 // Routes
-$app->group('/usuarios', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \UsuarioController::class . ':TraerTodos');
-    $group->get('/{usuario}', \UsuarioController::class . ':TraerUno');
-    $group->post('[/]', \UsuarioController::class . ':CargarUno');
-  });
+$app->get('/', function (Request $request, Response $response, $args) {
+  $response->getBody()->write("Bienvenido a la comanda");
+  return $response;
+});
 
-$app->get('[/]', function (Request $request, Response $response) {    
-    $response->getBody()->write("Slim Framework 4 PHP");
-    return $response;
+// peticiones
+$app->group('/personal', function (RouteCollectorProxy $group) {
+  $group->get('[/]', \PersonalController::class . ':TraerTodos');
+  $group->get('/{legajo}', \PersonalController::class . ':TraerUno');
+  $group->get('/perfil/{perfil}', \PersonalController::class . ':TraerPorPerfil');
+  $group->post('[/]', \PersonalController::class . ':CargarUno');
+});
 
+$app->group('/producto', function (RouteCollectorProxy $group) {
+$group->get('[/]', \ProductoController::class . ':TraerTodos');
+$group->get('/{tipo}', \ProductoController::class . ':TraerPorTipo');
+$group->post('[/]', \ProductoController::class . ':CargarUno');
+});
+
+$app->group('/mesa', function (RouteCollectorProxy $group) {
+$group->get('[/]', \MesaController::class . ':TraerTodos');
+$group->get('/{codigo}', \MesaController::class . ':TraerUno');
+$group->get('/estado/{estado}', \MesaController::class . ':TraerPorEstado');
+$group->post('[/]', \MesaController::class . ':CargarUno');
+});
+
+$app->group('/comanda', function (RouteCollectorProxy $group) {
+$group->get('[/]', \ComandaController::class . ':TraerTodos');
+$group->post('[/]', \ComandaController::class . ':CargarUno');
+});
+
+$app->group('/pedido', function (RouteCollectorProxy $group) {
+$group->get('[/]', \PedidoController::class . ':TraerTodos');  
+$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo');  
 });
 
 $app->run();
