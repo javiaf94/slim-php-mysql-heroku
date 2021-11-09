@@ -68,6 +68,7 @@ $group->post('[/]', \ComandaController::class . ':CargarUno');
 $app->group('/pedido', function (RouteCollectorProxy $group) {
 $group->get('[/]', \PedidoController::class . ':TraerTodos');  
 $group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo');  
+$group->post('[/]', \PedidoController::class . ':CargarUno');
 });
 
 $app->run();
