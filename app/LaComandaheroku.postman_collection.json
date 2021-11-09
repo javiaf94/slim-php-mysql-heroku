@@ -1,0 +1,578 @@
+{
+	"info": {
+		"_postman_id": "25fd5774-adc6-42a7-8bd8-b0330ab24e01",
+		"name": "LaComandaheroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Personal",
+			"item": [
+				{
+					"name": "AltaPersonal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "legajo",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "perfil",
+									"value": "mozo",
+									"type": "text"
+								},
+								{
+									"key": "nombre",
+									"value": "Mike",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "activo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTodos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTodosPorPerfil",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "perfil",
+									"value": "bartender",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/perfil/bartender",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal",
+								"perfil",
+								"bartender"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarUnoPorLegajo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/12345",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "ListarTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPorTipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto/cerveza",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"producto",
+								"cerveza"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AltaProducto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "lager",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "cerveza",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "600",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mesa",
+			"item": [
+				{
+					"name": "AltaMesa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "22122",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "comiendo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPorCodigo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "11223",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/11223",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"11223"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPorEstado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estado/esperando",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estado",
+								"esperando"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comanda",
+			"item": [
+				{
+					"name": "AltaComanda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "z362z",
+									"type": "text"
+								},
+								{
+									"key": "prs_mozo_legajo",
+									"value": "66666",
+									"type": "text"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text"
+								},
+								{
+									"key": "nombre_cliente",
+									"value": "clienteDos",
+									"type": "text"
+								},
+								{
+									"key": "prd_nombre",
+									"value": "pizza",
+									"type": "text"
+								},
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/comanda",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"comanda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTodos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "a123b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prs_mozo_legajo",
+									"value": "66666",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre_cliente",
+									"value": "clienteUno",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prd_nombre",
+									"value": "burger",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cantidad",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/comanda",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"comanda"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "TraerTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AltaPedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "z362z",
+									"type": "text"
+								},
+								{
+									"key": "prd_nombre",
+									"value": "burger",
+									"type": "text"
+								},
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerPorTipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/public/pedido/",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"public",
+								"pedido",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
