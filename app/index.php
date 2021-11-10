@@ -20,6 +20,9 @@ require_once './controllers/ProductoController.php';
 require_once './controllers/MesaController.php';
 require_once './controllers/ComandaController.php';
 
+require_once './middlewares/AutenticadorJWT.php';
+
+
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
@@ -68,7 +71,7 @@ $group->post('[/]', \ComandaController::class . ':CargarUno');
 
 $app->group('/pedido', function (RouteCollectorProxy $group) {
 $group->get('[/]', \PedidoController::class . ':TraerTodos');  
-$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo');  
+$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionPerfil');  
 $group->post('[/]', \PedidoController::class . ':CargarUno');
 });
 

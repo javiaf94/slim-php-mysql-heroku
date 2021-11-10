@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Psr7\Response;
 use Firebase\JWT\JWT;
 
 
@@ -79,5 +80,32 @@ class AutentificadorJWT
         $aud .= gethostname();
 
         return sha1($aud);
+    }
+
+    //
+
+    public function verificacionPerfil($request, $handler)
+    {
+      //parseo el header y tomo el string
+      $auth = $request->getHeaders()['Authorization'][0];
+      //le saco el bearer
+      $token = explode(" ", $auth)[1];
+      $response = new Response();
+      //pruebo si el token esta bien
+      try
+      {
+  
+        AutentificadorJWT::VerificarToken($token);
+      }catch(Exception $e)
+      {
+        $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+        return $response;
+      };      
+      $payload = AutentificadorJWT::ObtenerData($token);
+      
+      $response = $handler->handle($request);
+
+      //$response->getBody()->write(json_encode($payload));    
+      return $response;
     }
 }

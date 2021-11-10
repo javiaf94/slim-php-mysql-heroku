@@ -93,28 +93,7 @@ class PersonalController extends Personal implements IApiUsable
       ->withHeader('Content-Type', 'application/json');
   }
 
-  public function VerificarToken($request, $response, $args)
-  {
-    //parseo el header y tomo el string
-    $auth = $request->getHeaders()['Authorization'][0];
-    //le saco el bearer
-    $token = explode(" ", $auth)[1];
 
-    try
-    {
-
-      AutentificadorJWT::VerificarToken($token);
-    }catch(Exception $e)
-    {
-      $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
-      return $response;
-    };
-
-    $payload = AutentificadorJWT::ObtenerData($token);
-
-    $response->getBody()->write(json_encode($payload));    
-    return $response;
-  }
 
 
     //en desuso por ahora
