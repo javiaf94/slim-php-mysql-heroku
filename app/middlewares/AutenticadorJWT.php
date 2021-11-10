@@ -102,11 +102,21 @@ class AutentificadorJWT
         $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
         return $response;
       };      
+      
       $payload = AutentificadorJWT::ObtenerData($token);
       
-      $routeArguments = RouteContext::fromRequest($request)->getRoute()->getArguments();
-      $response->getBody()->write(json_encode($routeArguments));    
-      return $response;
+      //traigo el tipo de pedido desde el argumento
+      $args = RouteContext::fromRequest($request)->getRoute()->getArguments();
+      //$response->getBody()->write(json_encode($args));    
+      
+      switch($args['prd_tipo'])
+      {
+        case 'cocina':
+            $response->getBody()->write(json_encode($payload));    
+            return $response;
+            break;
+      }
+      
       $response = $handler->handle($request);
       
 
