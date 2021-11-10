@@ -1,6 +1,8 @@
 <?php
 require_once './models/Personal.php';
 require_once './interfaces/IApiUsable.php';
+require_once './middlewares/AutenticadorJWT.php';
+
 
 class PersonalController extends Personal implements IApiUsable
 {
@@ -62,7 +64,57 @@ class PersonalController extends Personal implements IApiUsable
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+    ///token
 
+    public function Login($request, $response, $args)
+    {
+      $parametros = $request->getParsedBody();
+      $legajo = $parametros['legajo'];
+      $perfil = $parametros['perfil'];
+      $clave = $parametros['clave'];
+      
+      $prs = Personal::obtenerPorLegajo($legajo);
+      if($prs)
+      {
+        if(password_verify($clave, $prs->clave))
+        {
+          $tokenjson = json_encode(array( "token" => AutentificadorJWT::CrearToken($perfil)));
+          $response->getBody()->write($tokenjson);
+        }
+        else
+        {        
+          $tokenjson = json_encode(array( "token" => "Datos invalidos"));
+          $response->getBody()->write($tokenjson);
+        }
+        
+      }
+      
+      return $response
+      ->withHeader('Content-Type', 'application/json');
+  }
+
+  public function VerificarToken($request, $response, $args)
+  {
+    //parseo el header y tomo el string
+    $auth = $request->getHeaders()['Authorization'][0];
+    //le saco el bearer
+    $token = explode(" ", $auth)[1];
+
+    try
+    {
+
+      AutentificadorJWT::VerificarToken($token);
+    }catch(Exception $e)
+    {
+      $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+      return $response;
+    };
+
+    $payload = AutentificadorJWT::ObtenerData($token);
+
+    $response->getBody()->write(json_encode($payload));    
+    return $response;
+  }
 
 
     //en desuso por ahora

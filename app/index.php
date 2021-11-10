@@ -45,6 +45,7 @@ $app->group('/personal', function (RouteCollectorProxy $group) {
   $group->get('/{legajo}', \PersonalController::class . ':TraerUno');
   $group->get('/perfil/{perfil}', \PersonalController::class . ':TraerPorPerfil');
   $group->post('[/]', \PersonalController::class . ':CargarUno');
+  $group->post('/login[/]', \PersonalController::class . ':Login');
 });
 
 $app->group('/producto', function (RouteCollectorProxy $group) {
