@@ -76,7 +76,7 @@ class PersonalController extends Personal implements IApiUsable
       $prs = Personal::obtenerPorLegajo($legajo);
       if($prs)
       {
-        if(password_verify($clave, $prs->clave))
+        if(password_verify($clave, $prs->clave) && $perfil == $prs->perfil)
         {
           $tokenjson = json_encode(array( "token" => AutentificadorJWT::CrearToken($perfil)));
           $response->getBody()->write($tokenjson);
