@@ -108,4 +108,10 @@ class AutentificadorJWT
       //$response->getBody()->write(json_encode($payload));    
       return $response;
     }
+
+    public static function verificacionPosterior($request, $handler)
+    {
+        
+    }
+
 }
