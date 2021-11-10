@@ -12,12 +12,15 @@ class PersonalController extends Personal implements IApiUsable
         $perfil = $parametros['perfil'];
         $nombre = $parametros['nombre'];
         $estado = $parametros['estado'];
+        $clave = $parametros['clave'];
         //creo el usuario
         $prs = new Personal();
         $prs->legajo = $legajo;
         $prs->perfil = $perfil;
         $prs->nombre = $nombre;
         $prs->estado = $estado;
+        $prs->clave = $clave;
+
         $prs->crearPersonal();
 
         $payload = json_encode(array("mensaje" => "Usuario creado con exito"));

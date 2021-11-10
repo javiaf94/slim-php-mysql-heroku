@@ -7,13 +7,16 @@ class Personal
     public $perfil;
     public $nombre;
     public $estado;
+    public $clave;
 
     public function crearPersonal()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO personal_prs (legajo, perfil, nombre, estado) VALUES (:legajo, :perfil, :nombre, :estado)");
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO personal_prs (legajo, clave, perfil, nombre, estado) VALUES (:legajo, :clave, :perfil, :nombre, :estado)");
         
+        $claveHash = password_hash($this->clave, PASSWORD_DEFAULT);
         $consulta->bindValue(':legajo', $this->legajo, PDO::PARAM_STR);
+        $consulta->bindValue(':clave', $claveHash);
         $consulta->bindValue(':perfil', $this->perfil, PDO::PARAM_STR);
         $consulta->bindValue(':nombre', $this->nombre, PDO::PARAM_STR);
         $consulta->bindValue(':estado', $this->estado, PDO::PARAM_STR);
