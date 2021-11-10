@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Psr7\Response;
+use \Slim\Routing\RouteContext;
 use Firebase\JWT\JWT;
 
 
@@ -103,10 +104,12 @@ class AutentificadorJWT
       };      
       $payload = AutentificadorJWT::ObtenerData($token);
       
-      $response = $handler->handle($request);
-
-      //$response->getBody()->write(json_encode($payload));    
+      $routeArguments = RouteContext::fromRequest($request)->getRoute()->getArguments();
+      $response->getBody()->write(json_encode($routeArguments));    
       return $response;
+      $response = $handler->handle($request);
+      
+
     }
 
     public static function verificacionPosterior($request, $handler)
