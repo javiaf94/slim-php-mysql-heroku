@@ -70,8 +70,8 @@ $group->post('[/]', \ComandaController::class . ':CargarUno');
 });
 
 $app->group('/pedido', function (RouteCollectorProxy $group) {
-$group->get('[/]', \PedidoController::class . ':TraerTodos');  
-$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionPerfil');  
+//$group->get('[/]', \PedidoController::class . ':TraerTodos');  
+$group->get('[/]', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionPerfil');  
 $group->post('[/]', \PedidoController::class . ':CargarUno');
 });
 
