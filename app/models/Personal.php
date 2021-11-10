@@ -37,7 +37,7 @@ class Personal
     public static function obtenerPorLegajo($legajo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT legajo, perfil, nombre, estado FROM personal_prs WHERE legajo = :legajo");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT legajo, clave, perfil, nombre, estado FROM personal_prs WHERE legajo = :legajo");
         $consulta->bindValue(':legajo', $legajo, PDO::PARAM_STR);
         $consulta->execute();
 
@@ -53,6 +53,8 @@ class Personal
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Personal');
     }
+
+
 
     // public static function modificarPersonal($legajo)
     // {
