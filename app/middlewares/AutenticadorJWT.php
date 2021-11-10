@@ -112,14 +112,14 @@ class AutentificadorJWT
       switch($args['prd_tipo'])
       {
         case 'cocina':
-            $response->getBody()->write(json_encode($payload));    
-            return $response;
+            if($payload=='socio')
+            {
+                $response = $handler->handle($request);
+            }
+            
             break;
       }
-      
-      $response = $handler->handle($request);
-      
-
+      return $response;                  
     }
 
     public static function verificacionPosterior($request, $handler)
