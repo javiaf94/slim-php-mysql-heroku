@@ -84,7 +84,7 @@ class AutentificadorJWT
 
     //
 
-    public function verificacionPerfil($request, $handler)
+    public static function verificacionPerfil($request, $handler)
     {
       //parseo el header y tomo el string
       $auth = $request->getHeaders()['Authorization'][0];
