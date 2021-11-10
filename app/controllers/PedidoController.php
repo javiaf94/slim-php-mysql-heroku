@@ -39,8 +39,8 @@ class PedidoController extends Pedido implements IApiUsable
     public function TraerPorTipo($request, $response, $args)
     {
         //Buscamos pedido por tipo
-        $parametros = $request->getParsedBody();      
-        $prd_tipo = $parametros['prd_tipo'];
+        
+        $prd_tipo = $args['prd_tipo'];
         $pedidos = Pedido::obtenerPorTipo($prd_tipo);
         $payload = json_encode($pedidos);
         
