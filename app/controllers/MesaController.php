@@ -55,6 +55,33 @@ class MesaController extends Mesa implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function ModificarUno($request, $response, $args)
+    {
+        $parametros = $request->getParsedBody();
+        
+        $codigo = $parametros['codigo'];
+        $estado = $parametros['estado'];        
+
+        $mesa = new Mesa();
+        $mesa->codigo = $codigo;
+        $mesa->estado = $estado;       
+        
+        $filas= Mesa::cerrarMesa($codigo,$estado);
+
+        if($filas>0)
+        {
+            $payload = json_encode(array("mensaje" => "Mesa modificada con exito"));
+        }
+        else
+        {
+        $payload = json_encode(array("mensaje" => "No se pudo modificar mesa"));
+        }
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
 
 
     //en desuso por ahora
@@ -64,35 +91,6 @@ class MesaController extends Mesa implements IApiUsable
 
 
     
-    // public function ModificarUno($request, $response, $args)
-    // {
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuario = $parametros['usuario'];
-    //     $clave = $parametros['clave'];
-    //     $id = $parametros['id'];
-
-    //     $usr = new Usuario();
-    //     $usr->usuario = $usuario;
-    //     $usr->clave = $clave;
-    //     $usr->id = $id;
-        
-    //     $filas= Usuario::modificarUsuario($usr);
-
-    //     if($filas>0)
-    //     {
-
-    //       $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
-    //     }
-    //     else
-    //     {
-    //       $payload = json_encode(array("mensaje" => "No se pudo modificar usuario"));
-    //     }
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
 
     // public function BorrarUno($request, $response, $args)
     // {

@@ -47,6 +47,15 @@ class Mesa
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Mesa');
     }
 
+    public static function cerrarMesa($codigo, $estado)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesa_mes SET estado= :estado WHERE codigo = :codigo");        
+        $consulta->bindValue(':codigo', $codigo, PDO::PARAM_INT);                
+        $consulta->bindValue(':estado', $estado, PDO::PARAM_STR);  
+        $consulta->execute();
+        return $consulta->rowCount();
+    }
 }
 
 

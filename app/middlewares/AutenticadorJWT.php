@@ -170,12 +170,63 @@ class AutentificadorJWT
 
     }
 
+    public static function verificacionTokenMesa($request, $handler)
+    {
+        $parametros = $request->getParsedBody();
+        $nuevoEstadoMesa = $parametros['estado'];        
+        
+        $auth = $request->getHeaders()['Authorization'];
+        $response = new Response();
+        
+        if(!empty($auth))
+        {
+            $token = explode(" ", $auth[0])[1];    
+            try
+            {
+              AutentificadorJWT::VerificarToken($token);
+      
+            }catch(Exception $e)
+            {
+              $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+              return $response;
+            }     
+            
+            $perfilToken = AutentificadorJWT::ObtenerData($token);
+            if($perfilToken == "socio")
+            {
+              $response = $handler->handle($request);
+              return $response;
+            }
+            else if($perfilToken == "mozo" && $nuevoEstadoMesa != "cerrada")
+            {
+                $response = $handler->handle($request);
+                return $response;
+            }
+            else if($nuevoEstadoMesa == "cerrada")
+            {
+              $response->getBody()->write(json_encode(array( "error" => "La mesa solo puede ser cerrada por un socio")));    
+              return $response;
+            }
+            else
+            {
+              $response->getBody()->write(json_encode(array( "error" => "El estado de la mesa solo puede ser modificado por un socio o mozo")));    
+              return $response;
+            }
+        }
+        else
+        {
+          $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
+          return $response;
+        }
+  
+    }
+    
 
     public static function verificacionTokenSocio($request, $handler)
     {
       $response = new Response();
       $auth = $request->getHeaders()['Authorization'];
-      
+
       if(!empty($auth))
       {
           $token = explode(" ", $auth[0])[1];    

@@ -44,7 +44,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 // peticiones
 $app->group('/personal', function (RouteCollectorProxy $group) {
-  $group->get('[/]', \PersonalController::class . ':TraerTodos');
+  $group->get('[/]', \PersonalController::class . ':TraerTodos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');  
   $group->get('/{legajo}', \PersonalController::class . ':TraerUno');
   $group->get('/perfil/{perfil}', \PersonalController::class . ':TraerPorPerfil');
   $group->post('[/]', \PersonalController::class . ':CargarUno')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');  
@@ -62,6 +62,8 @@ $group->get('[/]', \MesaController::class . ':TraerTodos');
 $group->get('/{codigo}', \MesaController::class . ':TraerUno');
 $group->get('/estado/{estado}', \MesaController::class . ':TraerPorEstado');
 $group->post('[/]', \MesaController::class . ':CargarUno');
+$group->put('[/]', \MesaController::class . ':ModificarUno')->add(\AutentificadorJWT::class . '::verificacionTokenMesa');
+
 });
 
 $app->group('/comanda', function (RouteCollectorProxy $group) {
