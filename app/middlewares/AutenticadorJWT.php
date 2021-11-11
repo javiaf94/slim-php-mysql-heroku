@@ -173,31 +173,42 @@ class AutentificadorJWT
 
     public static function verificacionTokenSocio($request, $handler)
     {
-      $auth = $request->getHeaders()['Authorization'][0];
-      $token = explode(" ", $auth)[1];
       $response = new Response();
-      try
+      $auth = $request->getHeaders()['Authorization'];
+
+      if($auth[0] != null)
       {
-        AutentificadorJWT::VerificarToken($token);
-        $perfilToken = AutentificadorJWT::ObtenerData($token);
-        
-        if($perfilToken == "socio")
-        {
-          $response = $handler->handle($request);
-          return $response;
-        }
-        else
-        {
-          $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
-          return $response;
-        }
-        
-      }catch(Exception $e)
+          $token = explode(" ", $auth[0])[1];    
+          try
+          {
+            AutentificadorJWT::VerificarToken($token);
+    
+          }
+          catch(Exception $e)
+          {
+            $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+            return $response;
+          }     
+          
+          $perfilToken = AutentificadorJWT::ObtenerData($token);
+          
+          if($perfilToken == "socio")
+          {
+            $response = $handler->handle($request);
+            return $response;
+          }
+          else
+          {
+            $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
+            return $response;
+          }
+      }
+      else
       {
-        $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+        $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
         return $response;
-      }     
-      
+      }
+
     }
 
       
