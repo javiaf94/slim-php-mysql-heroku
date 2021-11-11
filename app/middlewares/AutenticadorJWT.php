@@ -179,25 +179,25 @@ class AutentificadorJWT
       try
       {
         AutentificadorJWT::VerificarToken($token);
-
+        $perfilToken = AutentificadorJWT::ObtenerData($token);
+        
+        if($perfilToken == "socio")
+        {
+          $response = $handler->handle($request);
+          return $response;
+        }
+        else
+        {
+          $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
+          return $response;
+        }
+        
       }catch(Exception $e)
       {
         $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
         return $response;
       }     
       
-      $perfilToken = AutentificadorJWT::ObtenerData($token);
-      
-      if($perfilToken == "socio")
-      {
-        $response = $handler->handle($request);
-        return $response;
-      }
-      else
-      {
-        $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
-        return $response;
-      }
     }
 
       
