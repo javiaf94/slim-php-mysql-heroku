@@ -243,9 +243,9 @@ class AutentificadorJWT
           }     
           
           $perfilToken = AutentificadorJWT::ObtenerData($token);
-          $perfilToken = json_encode($perfilToken)['perfil'];
-          echo var_dump($perfilToken);
-
+          $perfilTokenJson = json_encode($perfilToken);
+          echo var_dump($perfilTokenJson['perfil']);
+          echo var_dump("\n". $perfilTokenJson);
           if($perfilToken == "socio")
           {
             $response = $handler->handle($request);
