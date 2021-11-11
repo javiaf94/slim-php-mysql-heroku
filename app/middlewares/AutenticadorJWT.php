@@ -191,7 +191,7 @@ class AutentificadorJWT
               return $response;
             }     
             
-            $perfilToken = AutentificadorJWT::ObtenerData($token);
+            $perfilToken = AutentificadorJWT::ObtenerData($token)['perfil'];
             if($perfilToken == "socio")
             {
               $response = $handler->handle($request);
