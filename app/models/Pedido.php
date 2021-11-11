@@ -65,7 +65,7 @@ class Pedido
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("UPDATE pedido_ped SET estado=:estado,    
-                                                      tiempo_preparacion=:tiempo_preparacion
+                                                      tiempo_preparacion=:tiempo_preparacion,
                                                       prs_legajo=:prs_legajo
                                                       WHERE com_codigo=:com_codigo AND prd_nombre=:prd_nombre");
         $consulta->bindValue(':com_codigo', $com_codigo, PDO::PARAM_STR);
