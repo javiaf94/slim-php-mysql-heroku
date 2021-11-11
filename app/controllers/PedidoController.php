@@ -62,6 +62,7 @@ class PedidoController extends Pedido implements IApiUsable
         ->withHeader('Content-Type', 'application/json');
     }
 
+    //me quede acá armando el pedido
     public function ModificarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
