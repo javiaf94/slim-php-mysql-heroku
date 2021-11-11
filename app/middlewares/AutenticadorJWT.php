@@ -85,7 +85,7 @@ class AutentificadorJWT
 
     //
 
-    public static function verificacionPerfil($request, $handler)
+    public static function verificacionTokenPedidos($request, $handler)
     {
       //parseo el header y tomo el string
       $auth = $request->getHeaders()['Authorization'][0];
@@ -101,21 +101,21 @@ class AutentificadorJWT
       {
         $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
         return $response;
-      };      
-      
+      }     
+
       $perfilToken = AutentificadorJWT::ObtenerData($token);
       
       //traigo el tipo de pedido desde el argumento
       $args = RouteContext::fromRequest($request)->getRoute()->getArguments();
-      //$response->getBody()->write(json_encode($args));    
       
-      if($perfilToken=='socio')
+      if($perfilToken =='socio')
       {
         echo "autorizado!\n";
         $response = $handler->handle($request);
       }
       else
       {
+          //comparo el perfil del token con el tipo de pedido.
           switch($args['prd_tipo'])
           {
             case 'cocina':
@@ -166,13 +166,40 @@ class AutentificadorJWT
                 break;
           }
       }
-      return $response;                  
+      return $response;     
+
     }
 
 
-    public static function verificacionPosterior($request, $handler)
+    public static function verificacionTokenSocio($request, $handler)
     {
-        
+      $auth = $request->getHeaders()['Authorization'][0];
+      $token = explode(" ", $auth)[1];
+      $response = new Response();
+      try
+      {
+        AutentificadorJWT::VerificarToken($token);
+
+      }catch(Exception $e)
+      {
+        $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+        return $response;
+      }     
+      
+      $perfilToken = AutentificadorJWT::ObtenerData($token);
+      
+      if($perfilToken == "socio")
+      {
+        $response = $handler->handle($request);
+        return $response;
+      }
+      else
+      {
+        $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
+        return $response;
+      }
     }
+
+      
 
 }

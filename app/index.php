@@ -47,7 +47,7 @@ $app->group('/personal', function (RouteCollectorProxy $group) {
   $group->get('[/]', \PersonalController::class . ':TraerTodos');
   $group->get('/{legajo}', \PersonalController::class . ':TraerUno');
   $group->get('/perfil/{perfil}', \PersonalController::class . ':TraerPorPerfil');
-  $group->post('[/]', \PersonalController::class . ':CargarUno');
+  $group->post('[/]', \PersonalController::class . ':CargarUno')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');  
   $group->post('/login[/]', \PersonalController::class . ':Login');
 });
 
@@ -71,7 +71,7 @@ $group->post('[/]', \ComandaController::class . ':CargarUno');
 
 $app->group('/pedido', function (RouteCollectorProxy $group) {
 $group->get('[/]', \PedidoController::class . ':TraerTodos');  
-$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionPerfil');  
+$group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
 $group->post('[/]', \PedidoController::class . ':CargarUno');
 });
 
