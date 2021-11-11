@@ -67,12 +67,12 @@ class PedidoController extends Pedido implements IApiUsable
     {
         $parametros = $request->getParsedBody();
         
-        $tiempo_Preparacion = $parametros['tiempo_Preparacion'];
+        $tiempo_preparacion = $parametros['tiempo_preparacion'];
         $estado = $parametros['estado'];        
         $com_codigo = $parametros['com_codigo'];
         $prd_nombre = $parametros['prd_nombre'];
 
-        $filas= Pedido::actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_Preparacion);
+        $filas= Pedido::actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion);
 
         if($filas>0)
         {
