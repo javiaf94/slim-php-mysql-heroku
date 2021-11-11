@@ -242,11 +242,7 @@ class AutentificadorJWT
             return $response;
           }     
           
-          $perfilToken = AutentificadorJWT::ObtenerData($token);
-          echo var_dump($perfilToken->perfil);
-
-        //   $perfilTokenJson = json_encode($perfilToken);
-        //   echo var_dump("\n". $perfilTokenJson);
+          $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
           
           if($perfilToken == "socio")
           {
