@@ -46,8 +46,7 @@ class Pedido
     public static function obtenerPorComandaMesa($com_codigo, $mesa_codigo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-    $consulta = $objAccesoDatos->prepararConsulta("SELECT com_codigo as codigo_comanda, mes_codigo as codigo_mesa, 
-                                                          prd_nombre as nombre_producto, 
+    $consulta = $objAccesoDatos->prepararConsulta("SELECT prd_nombre as nombre_producto, 
                                                           cantidad, ped.estado, tiempo_preparacion
                                                    FROM pedido_ped ped
                                                    INNER JOIN comanda_com com
