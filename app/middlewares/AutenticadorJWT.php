@@ -175,8 +175,8 @@ class AutentificadorJWT
     {
       $response = new Response();
       $auth = $request->getHeaders()['Authorization'];
-        echo $auth;
-      if($auth[0] != null)
+      
+      if(!empty($auth))
       {
           $token = explode(" ", $auth[0])[1];    
           try
