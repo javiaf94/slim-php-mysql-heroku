@@ -43,6 +43,24 @@ class Pedido
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Pedido');
     }
 
+    public static function obtenerPorComandaMesa($com_codigo, $mesa_codigo)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+    $consulta = $objAccesoDatos->prepararConsulta("SELECT com_codigo as codigo_comanda, mes_codigo as codigo_mesa, 
+                                                          prd_nombre as nombre_producto, 
+                                                          cantidad, ped.estado, tiempo_preparacion
+                                                   FROM pedido_ped ped
+                                                   INNER JOIN comanda_com com
+                                                   on com.codigo = ped.com_codigo
+                                                   WHERE ped.com_codigo = :com_codigo
+                                                   AND com.mes_codigo = :mes_codigo");
+        $consulta->bindValue(':com_codigo', $com_codigo, PDO::PARAM_STR);
+        $consulta->bindValue(':mes_codigo', $mesa_codigo, PDO::PARAM_INT);
+
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 }
 

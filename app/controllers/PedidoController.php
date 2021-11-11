@@ -49,6 +49,20 @@ class PedidoController extends Pedido implements IApiUsable
         ->withHeader('Content-Type', 'application/json');
     }
     
+    public function TraerPorComandaMesa($request, $response, $args)
+    {
+        $com_codigo = $args['com_codigo'];
+        $mesa_codigo = $args['mesa_codigo'];
+
+        $pedidos = Pedido::obtenerPorComandaMesa($com_codigo, $mesa_codigo);
+        $payload = json_encode($pedidos);
+        
+        $response->getBody()->write($payload);
+        return $response
+        ->withHeader('Content-Type', 'application/json');
+    }
+
+    
     
     
     //en desuso por ahora
