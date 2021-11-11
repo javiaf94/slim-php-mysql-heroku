@@ -103,7 +103,7 @@ class AutentificadorJWT
         return $response;
       }     
 
-      $perfilToken = AutentificadorJWT::ObtenerData($token);
+      $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
       
       //traigo el tipo de pedido desde el argumento
       $args = RouteContext::fromRequest($request)->getRoute()->getArguments();
@@ -191,7 +191,7 @@ class AutentificadorJWT
               return $response;
             }     
             
-            $perfilToken = AutentificadorJWT::ObtenerData($token);
+            $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
 
             echo var_dump($perfilToken);
             if($perfilToken == "socio")
