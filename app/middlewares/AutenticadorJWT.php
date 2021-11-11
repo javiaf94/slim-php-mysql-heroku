@@ -175,7 +175,7 @@ class AutentificadorJWT
     {
       $response = new Response();
       $auth = $request->getHeaders()['Authorization'];
-
+        echo $auth;
       if($auth[0] != null)
       {
           $token = explode(" ", $auth[0])[1];    
@@ -183,8 +183,7 @@ class AutentificadorJWT
           {
             AutentificadorJWT::VerificarToken($token);
     
-          }
-          catch(Exception $e)
+          }catch(Exception $e)
           {
             $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
             return $response;
