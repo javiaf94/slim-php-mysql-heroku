@@ -60,11 +60,7 @@ class MesaController extends Mesa implements IApiUsable
         $parametros = $request->getParsedBody();
         
         $codigo = $parametros['codigo'];
-        $estado = $parametros['estado'];        
-
-        $mesa = new Mesa();
-        $mesa->codigo = $codigo;
-        $mesa->estado = $estado;       
+        $estado = $parametros['estado'];              
         
         $filas= Mesa::cerrarMesa($codigo,$estado);
 

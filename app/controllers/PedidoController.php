@@ -62,7 +62,32 @@ class PedidoController extends Pedido implements IApiUsable
         ->withHeader('Content-Type', 'application/json');
     }
 
-    
+    public function ModificarUno($request, $response, $args)
+    {
+        $parametros = $request->getParsedBody();
+        
+        $tiempoPreparacion = $parametros['tiempoPreparacion'];
+        $estado = $parametros['estado'];        
+
+        $mesa = new Mesa();
+        $mesa->codigo = $codigo;
+        $mesa->estado = $estado;       
+        
+        $filas= Mesa::cerrarMesa($codigo,$estado);
+
+        if($filas>0)
+        {
+            $payload = json_encode(array("mensaje" => "Mesa modificada con exito"));
+        }
+        else
+        {
+        $payload = json_encode(array("mensaje" => "No se pudo modificar mesa"));
+        }
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
     
     
     //en desuso por ahora
