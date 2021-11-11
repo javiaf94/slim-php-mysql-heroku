@@ -61,14 +61,16 @@ class Pedido
         return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public static function actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion)
+    public static function actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion, $prs_legajo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("UPDATE pedido_ped SET estado=:estado,    
                                                       tiempo_preparacion=:tiempo_preparacion
+                                                      prs_legajo=:prs_legajo
                                                       WHERE com_codigo=:com_codigo AND prd_nombre=:prd_nombre");
         $consulta->bindValue(':com_codigo', $com_codigo, PDO::PARAM_STR);
         $consulta->bindValue(':prd_nombre', $prd_nombre, PDO::PARAM_STR);
+        $consulta->bindValue(':prs_legajo', $prs_legajo, PDO::PARAM_INT);
         $consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
         $consulta->bindValue(':tiempo_preparacion', $tiempo_preparacion, PDO::PARAM_INT);
 

@@ -71,16 +71,16 @@ class PedidoController extends Pedido implements IApiUsable
         $estado = $parametros['estado'];        
         $com_codigo = $parametros['com_codigo'];
         $prd_nombre = $parametros['prd_nombre'];
-
-        $filas= Pedido::actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion);
+        $prs_legajo = $parametros['prs_legajo'];
+        $filas= Pedido::actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion, $prs_legajo);
 
         if($filas>0)
         {
-            $payload = json_encode(array("mensaje" => "Mesa modificada con exito"));
+            $payload = json_encode(array("mensaje" => "Pedido modificado con exito"));
         }
         else
         {
-        $payload = json_encode(array("mensaje" => "No se pudo modificar mesa"));
+        $payload = json_encode(array("mensaje" => "No se pudo modificar Pedido"));
         }
 
         $response->getBody()->write($payload);
