@@ -95,32 +95,80 @@ class AutentificadorJWT
       //pruebo si el token esta bien
       try
       {
-  
         AutentificadorJWT::VerificarToken($token);
+
       }catch(Exception $e)
       {
         $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
         return $response;
       };      
       
-      $payload = AutentificadorJWT::ObtenerData($token);
+      $perfilToken = AutentificadorJWT::ObtenerData($token);
       
       //traigo el tipo de pedido desde el argumento
       $args = RouteContext::fromRequest($request)->getRoute()->getArguments();
       //$response->getBody()->write(json_encode($args));    
       
-      switch($args['prd_tipo'])
+      if($perfilToken=='socio')
       {
-        case 'cocina':
-            if($payload=='socio')
-            {
-                $response = $handler->handle($request);
-            }
+        echo "autorizado!\n";
+        $response = $handler->handle($request);
+      }
+      else
+      {
+          switch($args['prd_tipo'])
+          {
+            case 'cocina':
+                if($perfilToken=='cocinero')
+                {
+                    echo "autorizado!\n";
+                    $response = $handler->handle($request);
+                }
+                else
+                {
+                    echo "no autorizado!\n";
+                }            
+                break;
             
-            break;
+            case 'cerveza':
+                if($perfilToken=='cervecero')
+                {
+                    $response = $handler->handle($request);
+                }
+                else
+                {
+                    echo "no autorizado!\n";
+                }    
+                break;            
+            
+            case 'trago':
+                if($perfilToken=='bartender')
+                {
+                    $response = $handler->handle($request);
+                }
+                else
+                {
+                    echo "no autorizado!\n";
+                }    
+                break;
+    
+            case 'postre':
+                if($perfilToken =='socio')
+                {
+                    $response = $handler->handle($request);
+                }
+                else
+                {
+                    echo "no autorizado!\n";
+                }    
+                break;    
+            default:
+                break;
+          }
       }
       return $response;                  
     }
+
 
     public static function verificacionPosterior($request, $handler)
     {
