@@ -76,7 +76,7 @@ $group->get('[/]', \PedidoController::class . ':TraerTodos')->add(\Autentificado
 $group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
 $group->get('/{com_codigo}/{mesa_codigo}', \PedidoController::class . ':TraerPorComandaMesa');    
 $group->post('[/]', \PedidoController::class . ':CargarUno');
-$group->put('[/]', \PedidoController::class . ':ModificarUno')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
+$group->put('[/]', \PedidoController::class . ':ModificarUno');//->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
 
 });
 
