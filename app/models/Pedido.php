@@ -36,7 +36,7 @@ class Pedido
     public static function obtenerPendientesPorTipo($prd_tipo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT com_codigo, prd_nombre, prd_tipo, cantidad, prs_legajo, estado, tiempo_preparacion  FROM pedido_ped WHERE prd_tipo = :prd_tipo and estado=pendiente");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT com_codigo, prd_nombre, prd_tipo, cantidad, prs_legajo, estado, tiempo_preparacion  FROM pedido_ped WHERE prd_tipo = :prd_tipo and estado = pendiente");
         $consulta->bindValue(':prd_tipo', $prd_tipo, PDO::PARAM_STR);
         $consulta->execute();
 
