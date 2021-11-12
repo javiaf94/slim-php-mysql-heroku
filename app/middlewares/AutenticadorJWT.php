@@ -259,10 +259,7 @@ class AutentificadorJWT
     }
 
     public static function verificacionTokenAltaPedidos($request, $handler)
-    {
-        $parametros = $request->getParsedBody();
-        $nuevoEstadoMesa = $parametros['estado'];        
-        
+    {        
         $auth = $request->getHeaders()['Authorization'];
         $response = new Response();
         
