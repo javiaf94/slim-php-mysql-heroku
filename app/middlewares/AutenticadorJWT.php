@@ -96,18 +96,14 @@ class AutentificadorJWT
       try
       {
         AutentificadorJWT::VerificarToken($token);
-
       }catch(Exception $e)
       {
         $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
         return $response;
       }     
-
-      $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
-      
+      $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;    
       //traigo el tipo de pedido desde el argumento
-      $args = RouteContext::fromRequest($request)->getRoute()->getArguments();
-      
+      $args = RouteContext::fromRequest($request)->getRoute()->getArguments();    
       if($perfilToken =='socio')
       {
         echo "autorizado!\n";
@@ -167,8 +163,8 @@ class AutentificadorJWT
           }
       }
       return $response;     
-
     }
+    
 
     public static function verificacionTokenMesa($request, $handler)
     {
@@ -192,8 +188,7 @@ class AutentificadorJWT
             }     
             
             $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
-
-            echo var_dump($perfilToken);
+            
             if($perfilToken == "socio")
             {
               $response = $handler->handle($request);
@@ -263,6 +258,47 @@ class AutentificadorJWT
 
     }
 
+    public static function verificacionTokenAltaPedidos($request, $handler)
+    {
+        $parametros = $request->getParsedBody();
+        $nuevoEstadoMesa = $parametros['estado'];        
+        
+        $auth = $request->getHeaders()['Authorization'];
+        $response = new Response();
+        
+        if(!empty($auth))
+        {
+            $token = explode(" ", $auth[0])[1];    
+            try
+            {
+              AutentificadorJWT::VerificarToken($token);
+      
+            }catch(Exception $e)
+            {
+              $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+              return $response;
+            }     
+            
+            $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;
+            
+            if($perfilToken == "socio" || $perfilToken == "mozo")
+            {
+              $response = $handler->handle($request);
+              return $response;
+            }          
+            else
+            {
+              $response->getBody()->write(json_encode(array( "error" => "El alta de pedido solo puede ser realizada por un socio o mozo")));    
+              return $response;
+            }
+        }
+        else
+        {
+          $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
+          return $response;
+        }
+  
+    }
       
 
 }

@@ -75,7 +75,7 @@ $app->group('/pedido', function (RouteCollectorProxy $group) {
 $group->get('[/]', \PedidoController::class . ':TraerTodos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');    
 $group->get('/{prd_tipo}', \PedidoController::class . ':TraerPorTipo')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
 $group->get('/{com_codigo}/{mesa_codigo}', \PedidoController::class . ':TraerPorComandaMesa');    
-$group->post('[/]', \PedidoController::class . ':CargarUno');
+$group->post('[/]', \PedidoController::class . ':CargarUno')->add(\AutentificadorJWT::class . '::verificacionTokenAltaPedidos');
 $group->put('[/]', \PedidoController::class . ':ModificarUno');//->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
 
 });
