@@ -58,7 +58,7 @@ $group->post('[/]', \ProductoController::class . ':CargarUno');
 });
 
 $app->group('/mesa', function (RouteCollectorProxy $group) {
-$group->get('[/]', \MesaController::class . ':TraerTodos');
+$group->get('[/]', \MesaController::class . ':TraerTodos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
 $group->get('/{codigo}', \MesaController::class . ':TraerUno');
 $group->get('/estado/{estado}', \MesaController::class . ':TraerPorEstado');
 $group->post('[/]', \MesaController::class . ':CargarUno');
