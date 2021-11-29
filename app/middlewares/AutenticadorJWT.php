@@ -181,7 +181,7 @@ class AutentificadorJWT
       
             }catch(Exception $e)
             {
-              $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+              $response->getBody()->write(json_encode(array( "mensaje" => "Datos de token invalidos")));    
               return $response;
             }     
             
@@ -199,18 +199,18 @@ class AutentificadorJWT
             }
             else if($nuevoEstadoMesa == "cerrada")
             {
-              $response->getBody()->write(json_encode(array( "error" => "La mesa solo puede ser cerrada por un socio")));    
+              $response->getBody()->write(json_encode(array( "mensaje" => "La mesa solo puede ser cerrada por un socio")));    
               return $response;
             }
             else
             {
-              $response->getBody()->write(json_encode(array( "error" => "El estado de la mesa solo puede ser modificado por un socio o mozo")));    
+              $response->getBody()->write(json_encode(array( "mensaje" => "El estado de la mesa solo puede ser modificado por un socio o mozo")));    
               return $response;
             }
         }
         else
         {
-          $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
+          $response->getBody()->write(json_encode(array( "mensaje" => "Se requiere ingresar un token para esta accion")));    
           return $response;
         }
   
@@ -231,7 +231,7 @@ class AutentificadorJWT
     
           }catch(Exception $e)
           {
-            $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+            $response->getBody()->write(json_encode(array( "mensaje" => "Datos de token invalidos")));    
             return $response;
           }     
           
@@ -244,13 +244,13 @@ class AutentificadorJWT
           }
           else
           {
-            $response->getBody()->write(json_encode(array( "error" => "Esta tarea solo puede ser realizada por socios")));    
+            $response->getBody()->write(json_encode(array( "mensaje" => "Esta tarea solo puede ser realizada por socios")));    
             return $response;
           }
       }
       else
       {
-        $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
+        $response->getBody()->write(json_encode(array( "mensaje" => "Se requiere ingresar un token para esta accion")));    
         return $response;
       }
 
@@ -270,7 +270,7 @@ class AutentificadorJWT
       
             }catch(Exception $e)
             {
-              $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+              $response->getBody()->write(json_encode(array( "mensaje" => "Datos de token invalidos")));    
               return $response;
             }     
             
