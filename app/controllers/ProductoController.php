@@ -68,7 +68,6 @@ class ProductoController extends Producto implements IApiUsable
         }
         $ruta = $dir_subida . "/productos.csv";
 
-        echo var_dump($ruta);
 
         foreach($lista as $prod)
         {

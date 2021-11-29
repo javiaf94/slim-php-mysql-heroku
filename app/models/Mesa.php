@@ -83,7 +83,7 @@ class Mesa
     public static function obtenerMasFacturada()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT mes.id, mes.codigo, sum(precio_total) as total_facturado
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT  mes.codigo, sum(precio_total) as total_facturado
                                                         FROM mesa_mes mes
                                                         INNER JOIN comanda_com com 
                                                         ON mes.codigo = com.mes_codigo
@@ -99,7 +99,7 @@ class Mesa
     public static function obtenerMenosFacturada()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT mes.id, mes.codigo, sum(precio_total) as total_facturado
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT  mes.codigo, sum(precio_total) as total_facturado
                                                         FROM mesa_mes mes
                                                         INNER JOIN comanda_com com 
                                                         ON mes.codigo = com.mes_codigo
