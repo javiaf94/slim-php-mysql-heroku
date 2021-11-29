@@ -61,7 +61,7 @@ class ProductoController extends Producto implements IApiUsable
     {
         $lista = Producto::obtenerTodos();
 
-        $dir_subida = "./CSVExportados";
+        $dir_subida = "./app/CSVExportados";
         if (!file_exists($dir_subida)) 
         {
             mkdir($dir_subida);     
