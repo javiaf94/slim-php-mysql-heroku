@@ -1,21 +1,20 @@
 <?php
 require_once './models/Pedido.php';
 require_once './interfaces/IApiUsable.php';
+require_once './fpdf/fpdf.php';
 
 class PedidoController extends Pedido implements IApiUsable
 {
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();      
-        //parseo parametros
         $com_codigo = $parametros['codigo'];
-        $prd_nombre = $parametros['prd_nombre'];
+        $prd_id = $parametros['prd_id'];
         $prd_tipo = $parametros['prd_tipo'];
         $cantidad = $parametros['cantidad'];
-        //creo el pedido
         $pedido = new Pedido();
         $pedido->com_codigo = $com_codigo;
-        $pedido->prd_nombre = $prd_nombre;
+        $pedido->prd_id = $prd_id;
         $pedido->prd_tipo = $prd_tipo;
         $pedido->cantidad = $cantidad;
         $pedido->crearPedido();
@@ -29,8 +28,14 @@ class PedidoController extends Pedido implements IApiUsable
     public function TraerTodos($request, $response, $args)
     {
         $lista = Pedido::obtenerTodos();
-        $payload = json_encode(array("listaPedidos" => $lista));
-
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("listaPedidos" => $lista));            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -39,12 +44,17 @@ class PedidoController extends Pedido implements IApiUsable
 
     public function TraerPendientesPorTipo($request, $response, $args)
     {
-        //Buscamos pedido por tipo
-        
+       
         $prd_tipo = $args['prd_tipo'];
         $pedidos = Pedido::obtenerPendientesPorTipo($prd_tipo);
-        $payload = json_encode($pedidos);
-        
+        if(!empty($pedidos))
+        {          
+            $payload = json_encode($pedidos);            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
         ->withHeader('Content-Type', 'application/json');
@@ -56,24 +66,30 @@ class PedidoController extends Pedido implements IApiUsable
         $mesa_codigo = $args['mesa_codigo'];
 
         $pedidos = Pedido::obtenerPorComandaMesa($com_codigo, $mesa_codigo);
-        $payload = json_encode($pedidos);
+        if(!empty($pedidos))
+        {          
+            $payload = json_encode($pedidos);            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         
         $response->getBody()->write($payload);
         return $response
         ->withHeader('Content-Type', 'application/json');
     }
 
-    //me quede acá armando el pedido
-    public function ModificarUno($request, $response, $args)
+    public function ModificarUnEstadoyTiempo($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
         
         $tiempo_preparacion = $parametros['tiempo_preparacion'];
         $estado = $parametros['estado'];        
-        $com_codigo = $parametros['com_codigo'];
-        $prd_nombre = $parametros['prd_nombre'];
         $prs_legajo = $parametros['prs_legajo'];
-        $filas= Pedido::actualizarEstadoTiempo($com_codigo, $prd_nombre, $estado, $tiempo_preparacion, $prs_legajo);
+        $id = $parametros['id'];
+
+        $filas= Pedido::actualizarEstadoTiempo($id, $estado, $tiempo_preparacion, $prs_legajo);
 
         if($filas>0)
         {
@@ -88,71 +104,131 @@ class PedidoController extends Pedido implements IApiUsable
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
-    
-    
-    //en desuso por ahora
-    //
-    //
-    //
-    
-    
-    // public function TraerUno($request, $response, $args)
-    // {
-    //     //Buscamos mesa por codigo
-    //     $codigo = $args['codigo'];
-    //     $mesa = Mesa::obtenerPorCodigo($codigo);
-    //     $payload = json_encode($mesa);
 
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
-    
-    // public function ModificarUno($request, $response, $args)
-    // {
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuario = $parametros['usuario'];
-    //     $clave = $parametros['clave'];
-    //     $id = $parametros['id'];
-
-    //     $usr = new Usuario();
-    //     $usr->usuario = $usuario;
-    //     $usr->clave = $clave;
-    //     $usr->id = $id;
+    public function ModificarUnEstado($request, $response, $args)
+    {
+        $parametros = $request->getParsedBody();
         
-    //     $filas= Usuario::modificarUsuario($usr);
+        $estado = $parametros['estado'];        
+        $id = $parametros['id'];
 
-    //     if($filas>0)
-    //     {
+        $filas= Pedido::actualizarEstado($id, $estado);
 
-    //       $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
-    //     }
-    //     else
-    //     {
-    //       $payload = json_encode(array("mensaje" => "No se pudo modificar usuario"));
-    //     }
+        if($filas>0)
+        {
+            $payload = json_encode(array("mensaje" => "Pedido modificado con exito"));
+        }
+        else
+        {
+        $payload = json_encode(array("mensaje" => "No se pudo modificar Pedido"));
+        }
 
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
 
-    // public function BorrarUno($request, $response, $args)
-    // {
+    public function TraerMasVendidos($request, $response, $args)
+    {
+        $lista = Pedido::obtenerMasVendidos();
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("PedidosMasVendidos" => $lista));                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+
+    public function TraerMenosVendidos($request, $response, $args)
+    {
+        $lista = Pedido::obtenerMenosVendidos();
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("PedidosMenosVendidos" => $lista));                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerPedidosDemorados($request, $response, $args)
+    {
+        $lista = Pedido::obtenerDemorados();
+        if(!empty($lista))
+        {          
+    
+            $payload = json_encode(array("PedidosDemorados" => $lista));            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerPedidosCancelados($request, $response, $args)
+    {
+        $lista = Pedido::obtenerCancelados();
+      
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("PedidosCancelados" => $lista));            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerTodosPDF($request, $response, $args)
+    {
+        $lista = Pedido::obtenerTodos();
+
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','B',15);
+        //header
+        $pdf->Cell(170,10, 'Pedidos realizados' ,0,1, 'C');
+        $pdf->SetFont('Arial','B',10);
+        //body
+        foreach($lista as $pedido)
+        {
+            $linea1 = "id: " . $pedido->id . " | " . "com_codigo: " . $pedido->com_codigo .  " | " . 
+            "prd_id: " . $pedido->prd_id . " | " . "prd_tipo: " . $pedido->prd_tipo. " | " . "cantidad: " . $pedido->cantidad . "prs_legajo: " 
+            . $pedido->prs_legajo. " | " . "estado: " . $pedido->estado ;
+
+            $linea2 =   "tiempo_preparacion: " . $pedido->tiempo_preparacion . " | " . "timestamp_inicio: " 
+            . $pedido->timestamp_inicio . " | " . "timestamp_fin: " . $pedido->timestamp_fin ;
+            $pdf->Cell(40,10, $linea1 ,0,1);
+            $pdf->Cell(40,10, $linea2 ,0,1);
+        } 
+
         
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuarioId = $parametros['usuarioId'];
+        $pdf->Output('F', './pdf/Pedidos ' . date("d-m-Y", time()). '.pdf', 'I');
         
-    //     Usuario::borrarUsuario($usuarioId);
-
-    //     $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
+        $response->getBody()->write(json_encode(array("mensaje" => "pdf creado con exito")));
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+    }
+        
+    
 }
+
+
 
 ?>

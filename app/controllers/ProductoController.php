@@ -1,17 +1,17 @@
 <?php
 require_once './models/Producto.php';
 require_once './interfaces/IApiUsable.php';
+require_once './controllers/CSVController.php';
+
 
 class ProductoController extends Producto implements IApiUsable
 {
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();      
-        //parseo parametros
         $nombre = $parametros['nombre'];
         $tipo = $parametros['tipo'];
         $precio = $parametros['precio'];
-        //creo el producto
         $prd = new Producto();
         $prd->nombre = $nombre;
         $prd->tipo = $tipo;
@@ -27,8 +27,14 @@ class ProductoController extends Producto implements IApiUsable
     public function TraerTodos($request, $response, $args)
     {
         $lista = Producto::obtenerTodos();
-        $payload = json_encode(array("listaProductos" => $lista));
-
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("listaProductos" => $lista));                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -36,80 +42,77 @@ class ProductoController extends Producto implements IApiUsable
     
     public function TraerPorTipo($request, $response, $args)
     {
-        //Buscamos personal por perfil
         $tipo = $args['tipo'];
         $producto = Producto::obtenerPorTipo($tipo);
-        $payload = json_encode($producto);
-
+        if(!empty($producto))
+        {          
+            $payload = json_encode($producto);                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function ExportarCSV($request, $response, $args)
+    {
+        $lista = Producto::obtenerTodos();
+
+        $dir_subida = "./CSVExportados";
+        if (!file_exists($dir_subida)) 
+        {
+            mkdir($dir_subida);     
+        }
+        $ruta = $dir_subida . "/productos.csv";
 
 
-    //en desuso por ahora
-    //
-    //
-    //
+        foreach($lista as $prod)
+        {
+            $texto = $prod->id . "," . $prod->nombre . "," . $prod->tipo . ",". $prod->precio . "," ;
+            CSVController::AgregarCSV($ruta, $texto);
+        } 
 
-    // public function TraerUno($request, $response, $args)
-    // {
-    //     //Buscamos personal por legajo
-    //     $legajo = $args['legajo'];
-    //     $personal = Personal::obtenerPorLegajo($legajo);
-    //     $payload = json_encode($personal);
+        $response->getBody()->write(json_encode(array("mensaje" => "CSV creado con exito")));
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
 
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
+    public function ImportarCSV($request, $response, $args)
+    {
+        $file = $request->getUploadedFiles()['file'];
+        
+        $dir_subida = "./CSVImportados";
+        if (!file_exists($dir_subida)) 
+        {
+            mkdir($dir_subida);     
+        }
+
+        $ruta = $dir_subida . "/productos.csv";
+        $file->moveTo($ruta);
+
+        $productosCSV = CSVController::LeerCSV($ruta);
+        
+        foreach($productosCSV as $prod)
+        {
+            $parametros = explode(',',$prod);
+            $producto = new Producto();
+            $producto->nombre = $parametros[1];
+            $producto->tipo = $parametros[2];
+            $producto->precio = $parametros[3];
+            
+            $producto->crearProducto();
+        }
+        
+        $response->getBody()->write(json_encode(array("mensaje" => "CSV importado con exito")));
+        return $response
+          ->withHeader('Content-Type', 'application/json');        
+
+    }
+
     
-    // public function ModificarUno($request, $response, $args)
-    // {
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuario = $parametros['usuario'];
-    //     $clave = $parametros['clave'];
-    //     $id = $parametros['id'];
-
-    //     $usr = new Usuario();
-    //     $usr->usuario = $usuario;
-    //     $usr->clave = $clave;
-    //     $usr->id = $id;
-        
-    //     $filas= Usuario::modificarUsuario($usr);
-
-    //     if($filas>0)
-    //     {
-
-    //       $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
-    //     }
-    //     else
-    //     {
-    //       $payload = json_encode(array("mensaje" => "No se pudo modificar usuario"));
-    //     }
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
-
-    // public function BorrarUno($request, $response, $args)
-    // {
-        
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuarioId = $parametros['usuarioId'];
-        
-    //     Usuario::borrarUsuario($usuarioId);
-
-    //     $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
 }
 
 ?>

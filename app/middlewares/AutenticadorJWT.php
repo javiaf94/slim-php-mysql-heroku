@@ -98,16 +98,15 @@ class AutentificadorJWT
         AutentificadorJWT::VerificarToken($token);
       }catch(Exception $e)
       {
-        $response->getBody()->write(json_encode(array( "token" => "Datos invalidos")));    
+        $response->getBody()->write(json_encode(array( "mensaje" => "Datos de token invalidos")));    
         return $response;
       }     
       $perfilToken = AutentificadorJWT::ObtenerData($token)->perfil;    
       //traigo el tipo de pedido desde el argumento
       $args = RouteContext::fromRequest($request)->getRoute()->getArguments();    
       if($perfilToken =='socio')
-      {
-        echo "autorizado!\n";
-        $response = $handler->handle($request);
+      {        
+        $response = $handler->handle($request);        
       }
       else
       {
@@ -116,13 +115,13 @@ class AutentificadorJWT
           {
             case 'cocina':
                 if($perfilToken=='cocinero')
-                {
-                    echo "autorizado!\n";
-                    $response = $handler->handle($request);
+                {                   
+                  $response = $handler->handle($request);
+
                 }
                 else
                 {
-                    echo "no autorizado!\n";
+                  $response->getBody()->write(json_encode(array("mensaje" => "La tarea solo puede realizarse por un cocinero")));
                 }            
                 break;
             
@@ -133,7 +132,7 @@ class AutentificadorJWT
                 }
                 else
                 {
-                    echo "no autorizado!\n";
+                    $response->getBody()->write(json_encode(array("mensaje" => "La tarea solo puede realizarse por un cervecero")));
                 }    
                 break;            
             
@@ -144,22 +143,21 @@ class AutentificadorJWT
                 }
                 else
                 {
-                    echo "no autorizado!\n";
+                  $response->getBody()->write(json_encode(array("mensaje" => "La tarea solo puede realizarse por un bartender")));
                 }    
                 break;
     
             case 'postre':
-                if($perfilToken =='socio')
+                if($perfilToken =='pastelero')
                 {
                     $response = $handler->handle($request);
                 }
                 else
                 {
-                    echo "no autorizado!\n";
+                  $response->getBody()->write(json_encode(array("mensaje" => "La tarea solo puede realizarse por un pastelero")));
                 }    
                 break;    
-            default:
-                break;
+
           }
       }
       return $response;     
@@ -258,7 +256,7 @@ class AutentificadorJWT
 
     }
 
-    public static function verificacionTokenAltaPedidos($request, $handler)
+    public static function verificacionTokenMozoSocio($request, $handler)
     {        
         $auth = $request->getHeaders()['Authorization'];
         $response = new Response();
@@ -285,13 +283,13 @@ class AutentificadorJWT
             }          
             else
             {
-              $response->getBody()->write(json_encode(array( "error" => "El alta de pedido solo puede ser realizada por un socio o mozo")));    
+              $response->getBody()->write(json_encode(array( "mensaje" => "Esta tarea solo puede ser realizada por un socio o mozo")));    
               return $response;
             }
         }
         else
         {
-          $response->getBody()->write(json_encode(array( "error" => "Se requiere ingresar un token para esta accion")));    
+          $response->getBody()->write(json_encode(array( "mensaje" => "Se requiere ingresar un token para esta accion")));    
           return $response;
         }
   

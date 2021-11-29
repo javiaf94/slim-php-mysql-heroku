@@ -2,7 +2,7 @@
 
 class Personal
 {
-
+    public $id;
     public $legajo;
     public $perfil;
     public $nombre;
@@ -28,7 +28,7 @@ class Personal
     public static function obtenerTodos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT legajo, perfil, nombre, estado FROM personal_prs");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, legajo, perfil, nombre, estado FROM personal_prs");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Personal');
@@ -37,7 +37,7 @@ class Personal
     public static function obtenerPorLegajo($legajo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT legajo, clave, perfil, nombre, estado FROM personal_prs WHERE legajo = :legajo");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, legajo, clave, perfil, nombre, estado FROM personal_prs WHERE legajo = :legajo");
         $consulta->bindValue(':legajo', $legajo, PDO::PARAM_STR);
         $consulta->execute();
 
@@ -47,7 +47,7 @@ class Personal
     public static function obtenerPorPerfil($perfil)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT legajo, perfil, nombre, estado FROM personal_prs WHERE perfil = :perfil");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, legajo, perfil, nombre, estado FROM personal_prs WHERE perfil = :perfil");
         $consulta->bindValue(':perfil', $perfil, PDO::PARAM_STR);
         $consulta->execute();
 
@@ -56,28 +56,15 @@ class Personal
 
 
 
-    // public static function modificarPersonal($legajo)
-    // {
-    //     $objAccesoDato = AccesoDatos::obtenerInstancia();
-    //     $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET usuario = :usuario, clave = :clave WHERE id = :id");
-    //     $claveHash = password_hash($usuario->clave, PASSWORD_DEFAULT);
-    //     $consulta->bindValue(':usuario', $usuario->usuario, PDO::PARAM_STR);
-    //     $consulta->bindValue(':clave', $claveHash, PDO::PARAM_STR);
-    //     $consulta->bindValue(':id', $usuario->id, PDO::PARAM_INT);
-    //     $consulta->execute();
-    //     return $consulta->rowCount();
-    // }
-
-    // public static function borrarUsuario($usuario)
-    // {
-    //     $objAccesoDato = AccesoDatos::obtenerInstancia();
-    //     $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET fechaBaja = :fechaBaja WHERE id = :id");
-    //     $fecha = new DateTime(date("d-m-Y"));
-    //     $consulta->bindValue(':id', $usuario, PDO::PARAM_INT);
-    //     $consulta->bindValue(':fechaBaja', date_format($fecha, 'Y-m-d H:i:s'));
-    //     $consulta->execute();
-    // }
-
+    public static function modificarPersonal($legajo, $estado)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE personal_prs SET estado = :estado WHERE legajo = :legajo");
+        $consulta->bindValue(':legajo', $legajo, PDO::PARAM_STR);
+        $consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
+        $consulta->execute();
+        return $consulta->rowCount();
+    }
 }
 
 

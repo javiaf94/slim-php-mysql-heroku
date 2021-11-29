@@ -7,10 +7,8 @@ class MesaController extends Mesa implements IApiUsable
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();      
-        //parseo parametros
         $codigo = $parametros['codigo'];
         $estado = $parametros['estado'];
-        //creo la mesa
         $mesa = new Mesa();
         $mesa->codigo = $codigo;
         $mesa->estado = $estado;
@@ -25,8 +23,14 @@ class MesaController extends Mesa implements IApiUsable
     public function TraerTodos($request, $response, $args)
     {
         $lista = Mesa::obtenerTodos();
-        $payload = json_encode(array("listaMesas" => $lista));
-
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("listaMesas" => $lista));                 
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -34,22 +38,135 @@ class MesaController extends Mesa implements IApiUsable
 
     public function TraerUno($request, $response, $args)
     {
-        //Buscamos mesa por codigo
         $codigo = $args['codigo'];
         $mesa = Mesa::obtenerPorCodigo($codigo);
-        $payload = json_encode($mesa);
+        
+        if(!empty($mesa))
+        {          
+            $payload = json_encode($mesa);
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
 
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
     public function TraerPorEstado($request, $response, $args)
     {
-        //Buscamos mesa por estado
         $estado = $args['estado'];
         $mesa = Mesa::obtenerPorEstado($estado);
-        $payload = json_encode($mesa);
 
+        if(!empty($mesa))
+        {          
+            $payload = json_encode($mesa);
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMasUsada($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerMasUsada();
+
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MasUsada" => $mesa));
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMenosUsada($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerMenosUsada();
+
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MenosUsada" => $mesa));            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMasFacturada($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerMasFacturada();
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MesaMasFacturada" => $mesa));                  
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerMenosFacturada($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerMenosFacturada();
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MesaMenosFacturada" => $mesa));                            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerFacturaMasGrande($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerFacturaMasGrande();
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MesaConFacturaMasgrande" => $mesa));                       
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerFacturaMasChica($request, $response, $args)
+    {
+        $mesa = Mesa::obtenerFacturaMasChica();
+        if(!empty($mesa))
+        {          
+            $payload = json_encode(array("MesaConFacturaMasChica" => $mesa));                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -80,29 +197,6 @@ class MesaController extends Mesa implements IApiUsable
 
 
 
-    //en desuso por ahora
-    //
-    //
-    //
-
-
-    
-
-    // public function BorrarUno($request, $response, $args)
-    // {
-        
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuarioId = $parametros['usuarioId'];
-        
-    //     Usuario::borrarUsuario($usuarioId);
-
-    //     $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
 }
 
 ?>

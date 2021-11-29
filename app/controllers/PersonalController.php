@@ -2,6 +2,7 @@
 require_once './models/Personal.php';
 require_once './interfaces/IApiUsable.php';
 require_once './middlewares/AutenticadorJWT.php';
+require_once './models/Login.php';
 
 
 class PersonalController extends Personal implements IApiUsable
@@ -9,13 +10,11 @@ class PersonalController extends Personal implements IApiUsable
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();      
-        //parseo parametros
         $legajo = $parametros['legajo'];
         $perfil = $parametros['perfil'];
         $nombre = $parametros['nombre'];
         $estado = $parametros['estado'];
         $clave = $parametros['clave'];
-        //creo el usuario
         $prs = new Personal();
         $prs->legajo = $legajo;
         $prs->perfil = $perfil;
@@ -34,8 +33,14 @@ class PersonalController extends Personal implements IApiUsable
     public function TraerTodos($request, $response, $args)
     {
         $lista = Personal::obtenerTodos();
-        $payload = json_encode(array("listaPersonal" => $lista));
-
+        if(!empty($lista))
+        {          
+            $payload = json_encode(array("listaPersonal" => $lista));                        
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -43,11 +48,17 @@ class PersonalController extends Personal implements IApiUsable
     
     public function TraerUno($request, $response, $args)
     {
-        //Buscamos personal por legajo
         $legajo = $args['legajo'];
         $personal = Personal::obtenerPorLegajo($legajo);
-        $payload = json_encode($personal);
-
+        if(!empty($personal))
+        {          
+            $payload = json_encode($personal);
+            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -55,16 +66,21 @@ class PersonalController extends Personal implements IApiUsable
 
     public function TraerPorPerfil($request, $response, $args)
     {
-        //Buscamos personal por perfil
         $perfil = $args['perfil'];
         $personal = Personal::obtenerPorPerfil($perfil);
-        $payload = json_encode($personal);
-
+        if(!empty($personal))
+        {          
+            $payload = json_encode($personal);
+            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
-    ///token
 
     public function Login($request, $response, $args)
     {
@@ -79,12 +95,16 @@ class PersonalController extends Personal implements IApiUsable
         if(password_verify($clave, $prs->clave) && $perfil == $prs->perfil)
         {
           $dataToken = array("perfil"=> $perfil , "legajo"=> $legajo);
-          $tokenjson = json_encode(array( "token" => AutentificadorJWT::CrearToken($dataToken)));
+          $tokenjson = json_encode(array( "mensaje" => AutentificadorJWT::CrearToken($dataToken)));
           $response->getBody()->write($tokenjson);
+
+          $login = new Login();
+          $login->prs_legajo = $legajo;
+          $login->crearLogin();
         }
         else
         {        
-          $tokenjson = json_encode(array( "token" => "Datos invalidos"));
+          $tokenjson = json_encode(array( "mensaje" => "Datos invalidos"));
           $response->getBody()->write($tokenjson);
         }
         
@@ -94,59 +114,48 @@ class PersonalController extends Personal implements IApiUsable
       ->withHeader('Content-Type', 'application/json');
   }
 
+  public function TraerLogs($request, $response, $args)
+  {
+    $legajo = $args['legajo'];
 
+    $lista = Login::traerLogsPersonal($legajo);
+    if(!empty($lista))
+    {
+      $payload = json_encode(array("listaLogs" => $lista));
+    }
+    else
+    {
+      $payload = json_encode(array("mensaje" => "no se encontraron logs para ese legajo"));
+    }
 
+    $response->getBody()->write($payload);
+    return $response
+      ->withHeader('Content-Type', 'application/json');
+  }
 
-    //en desuso por ahora
-    //
-    //
-    //
+  public function ModificarUno($request, $response, $args)
+  {
+      $parametros = $request->getParsedBody();
 
-    
-    
-    // public function ModificarUno($request, $response, $args)
-    // {
-    //     $parametros = $request->getParsedBody();
+      $legajo = $parametros['legajo'];
+      $estado = $parametros['estado'];
+      
+      $filas= Personal::modificarPersonal($legajo, $estado);
 
-    //     $usuario = $parametros['usuario'];
-    //     $clave = $parametros['clave'];
-    //     $id = $parametros['id'];
+      if($filas>0)
+      {
 
-    //     $usr = new Usuario();
-    //     $usr->usuario = $usuario;
-    //     $usr->clave = $clave;
-    //     $usr->id = $id;
-        
-    //     $filas= Usuario::modificarUsuario($usr);
+        $payload = json_encode(array("mensaje" => "Personal modificado con exito"));
+      }
+      else
+      {
+        $payload = json_encode(array("mensaje" => "No se pudo modificar Personal"));
+      }
 
-    //     if($filas>0)
-    //     {
+      $response->getBody()->write($payload);
+      return $response
+        ->withHeader('Content-Type', 'application/json');
+  }
+  
 
-    //       $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
-    //     }
-    //     else
-    //     {
-    //       $payload = json_encode(array("mensaje" => "No se pudo modificar usuario"));
-    //     }
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
-
-    // public function BorrarUno($request, $response, $args)
-    // {
-        
-    //     $parametros = $request->getParsedBody();
-
-    //     $usuarioId = $parametros['usuarioId'];
-        
-    //     Usuario::borrarUsuario($usuarioId);
-
-    //     $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
 }

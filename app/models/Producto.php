@@ -2,7 +2,7 @@
 
 class Producto
 {
-
+    public $id;
     public $nombre;
     public $tipo;
     public $precio;
@@ -23,7 +23,7 @@ class Producto
     public static function obtenerTodos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT nombre, tipo, precio FROM producto_prd");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, nombre, tipo, precio FROM producto_prd");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Producto');
@@ -32,12 +32,13 @@ class Producto
     public static function obtenerPorTipo($tipo)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT nombre, tipo, precio FROM producto_prd WHERE tipo = :tipo");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, nombre, tipo, precio FROM producto_prd WHERE tipo = :tipo");
         $consulta->bindValue(':tipo', $tipo, PDO::PARAM_STR);
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Producto');
     }
+
 
 
 }
