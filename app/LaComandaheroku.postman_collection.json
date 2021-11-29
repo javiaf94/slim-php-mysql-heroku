@@ -11,6 +11,16 @@
 				{
 					"name": "AltaPersonal",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzY2MDE2NTMsImV4cCI6Ni4wMDAwMDAwMDAxNjM2NmUrMTksImF1ZCI6IjgyYTQ4YWVhMDNlY2E1OWNjMjkzODY0YWE4ZTU1NjZjZDRlYjk3OWIiLCJkYXRhIjoic29jaW8iLCJhcHAiOiJUZXN0IEpXVCJ9.hG1pkWh2QaDKR_k__sXMNjtc2FE0ATk2142O4RcsREY",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -18,22 +28,27 @@
 							"formdata": [
 								{
 									"key": "legajo",
-									"value": "11111",
+									"value": "55555",
 									"type": "text"
 								},
 								{
 									"key": "perfil",
-									"value": "mozo",
+									"value": "cocinero",
 									"type": "text"
 								},
 								{
 									"key": "nombre",
-									"value": "Mike",
+									"value": "Donna",
 									"type": "text"
 								},
 								{
 									"key": "estado",
 									"value": "activo",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "clave5",
 									"type": "text"
 								}
 							]
@@ -59,6 +74,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTU0NDUsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.RttUfyAdcJt0uzRsEV1v3Zdy-iOeiI2L6CLZEPdE2KM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -129,7 +154,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/12345",
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/11111",
 							"protocol": "https",
 							"host": [
 								"jfernandez-slim-php-heroku",
@@ -138,7 +163,133 @@
 							],
 							"path": [
 								"personal",
-								"12345"
+								"11111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "legajo",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "perfil",
+									"value": "socio",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "clave1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/login",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal",
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerLogsPersonal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/personal/logs/22222",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"personal",
+								"logs",
+								"22222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarEstado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgwNTI3MjQsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MDZlKzE5LCJhdWQiOiJmZjRjY2MwMWI1OGYzMWQ2OGZkZDI4NmExNDE4MWQyYWYyOTJlMGQ3IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.RfwfnfwsRO-6s6EyWyhgj7l6fBUb8GUya-uT_pBKZH0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "legajo",
+									"value": "11111",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "suspendido",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/app/personal",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"app",
+								"personal"
 							]
 						}
 					},
@@ -149,6 +300,38 @@
 		{
 			"name": "Producto",
 			"item": [
+				{
+					"name": "TraerCSV",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto/csv/export",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"producto",
+								"csv",
+								"export"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "ListarTodos",
 					"request": {
@@ -172,10 +355,20 @@
 				{
 					"name": "ListarPorTipo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzY2MDIyOTAsImV4cCI6Ni4wMDAwMDAwMDAxNjM2NjFlKzE5LCJhdWQiOiI4MmE0OGFlYTAzZWNhNTljYzI5Mzg2NGFhOGU1NTY2Y2Q0ZWI5NzliIiwiZGF0YSI6ImNvY2luZXJvIiwiYXBwIjoiVGVzdCBKV1QifQ.weI18w3KZVWfI1IvJNrwOkzetPz1GlxDwLHntH34iic",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto/cerveza",
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto/trago",
 							"protocol": "https",
 							"host": [
 								"jfernandez-slim-php-heroku",
@@ -184,7 +377,7 @@
 							],
 							"path": [
 								"producto",
-								"cerveza"
+								"trago"
 							]
 						}
 					},
@@ -200,12 +393,12 @@
 							"formdata": [
 								{
 									"key": "nombre",
-									"value": "lager",
+									"value": "brownies",
 									"type": "text"
 								},
 								{
 									"key": "tipo",
-									"value": "cerveza",
+									"value": "postre",
 									"type": "text"
 								},
 								{
@@ -229,6 +422,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ImportardesdeCSV",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/producto/csv/import",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"producto",
+								"csv",
+								"import"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -238,6 +463,16 @@
 				{
 					"name": "AltaMesa",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -245,12 +480,12 @@
 							"formdata": [
 								{
 									"key": "codigo",
-									"value": "22122",
+									"value": "12345",
 									"type": "text"
 								},
 								{
 									"key": "estado",
-									"value": "comiendo",
+									"value": "esperando",
 									"type": "text"
 								}
 							]
@@ -273,8 +508,63 @@
 				{
 					"name": "ListarTodos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditarEstado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "codigo",
+									"value": "22122",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "cerrada",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa",
 							"protocol": "https",
@@ -328,10 +618,20 @@
 				{
 					"name": "ListarPorEstado",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estado/esperando",
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estado/comiendo",
 							"protocol": "https",
 							"host": [
 								"jfernandez-slim-php-heroku",
@@ -341,7 +641,181 @@
 							"path": [
 								"mesa",
 								"estado",
-								"esperando"
+								"comiendo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerFacturaMasChica",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estadisticas/facturamaschica",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estadisticas",
+								"facturamaschica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerFacturaMasGrande",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estadisticas/facturamasgrande",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estadisticas",
+								"facturamasgrande"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerMenosFacturada",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estadisticas/menosfacturada",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estadisticas",
+								"menosfacturada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerMasFacturada",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estadisticas/masfacturada",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estadisticas",
+								"masfacturada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerMasUsada",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "22122",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/mesa/estadisticas/masusada",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mesa",
+								"estadisticas",
+								"masusada"
 							]
 						}
 					},
@@ -355,6 +829,16 @@
 				{
 					"name": "AltaComanda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTU2NjEsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJtb3pvIiwibGVnYWpvIjoiMzMzMzMifSwiYXBwIjoiVGVzdCBKV1QifQ.n-gmEfaRA_twZBBrmhIuzFm6ANJF5rL4GMPrGgXHzE8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -362,27 +846,27 @@
 							"formdata": [
 								{
 									"key": "codigo",
-									"value": "z362z",
+									"value": "a123a",
 									"type": "text"
 								},
 								{
 									"key": "prs_mozo_legajo",
-									"value": "66666",
+									"value": "33333",
 									"type": "text"
 								},
 								{
 									"key": "mes_codigo",
-									"value": "11223",
+									"value": "22122",
 									"type": "text"
 								},
 								{
 									"key": "nombre_cliente",
-									"value": "clienteDos",
+									"value": "Juancito",
 									"type": "text"
 								},
 								{
-									"key": "prd_nombre",
-									"value": "pizza",
+									"key": "prd_id",
+									"value": "5",
 									"type": "text"
 								},
 								{
@@ -392,7 +876,7 @@
 								},
 								{
 									"key": "cantidad",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -481,6 +965,140 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "subirFotoComanda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTU2NjEsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJtb3pvIiwibGVnYWpvIjoiMzMzMzMifSwiYXBwIjoiVGVzdCBKV1QifQ.n-gmEfaRA_twZBBrmhIuzFm6ANJF5rL4GMPrGgXHzE8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "codigo",
+									"value": "a123a",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Javi_/Downloads/mesa.jpg"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nombre_cliente",
+									"value": "clienteUno",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prd_nombre",
+									"value": "burger",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cantidad",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/comanda/foto",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"comanda",
+								"foto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RealizarCobro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTczNDcsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJtb3pvIiwibGVnYWpvIjoiMzMzMzMifSwiYXBwIjoiVGVzdCBKV1QifQ.WFkgTgRxz3_xGgxPLvTTtT82OY99PqmbeQrF1emBM-8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "codigo",
+									"value": "a123a",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "en preparacion",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tiempo_preparacion",
+									"value": "30",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "legajo",
+									"value": "55555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/comanda",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"comanda"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -490,6 +1108,16 @@
 				{
 					"name": "TraerTodos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTU0NDUsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.RttUfyAdcJt0uzRsEV1v3Zdy-iOeiI2L6CLZEPdE2KM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -508,8 +1136,40 @@
 					"response": []
 				},
 				{
+					"name": "TraerPorComandayMesa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/a123a/22122",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"a123a",
+								"22122"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "AltaPedido",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTU0NDUsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.RttUfyAdcJt0uzRsEV1v3Zdy-iOeiI2L6CLZEPdE2KM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -517,17 +1177,17 @@
 							"formdata": [
 								{
 									"key": "codigo",
-									"value": "z362z",
+									"value": "a123a",
 									"type": "text"
 								},
 								{
-									"key": "prd_nombre",
-									"value": "burger",
+									"key": "prd_id",
+									"value": "8",
 									"type": "text"
 								},
 								{
 									"key": "prd_tipo",
-									"value": "cocina",
+									"value": "trago",
 									"type": "text"
 								},
 								{
@@ -553,20 +1213,717 @@
 					"response": []
 				},
 				{
-					"name": "TraerPorTipo",
+					"name": "TraerPendientesPorTipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTY0OTAsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJiYXJ0ZW5kZXIiLCJsZWdham8iOiIyMjIyMiJ9LCJhcHAiOiJUZXN0IEpXVCJ9.Z01kuUbLXHfPVo_TqepjiJmYlSbgpjDf8mULwUv8Abg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/trago",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"trago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerEnPreparacionPorTipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTY5NjcsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJiYXJ0ZW5kZXIiLCJsZWdham8iOiIyMjIyMiJ9LCJhcHAiOiJUZXN0IEpXVCJ9.AZf0pyxLNR_MX7rbQInggKUm9MNSDO58sTG9cVTMfoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/enpreparacion/trago",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"enpreparacion",
+								"trago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerListosPorTipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTkwOTAsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI5OGFmMTk0NDE0YTcyZTViZWQ4YjY1ZDc0ZTI3Y2RjOGM4YjYzMmVhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.T-o4xqdfg_0zF0tkSwB9CpsDdO5KEHD0-hTA2Ej91SI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "prd_tipo",
+									"value": "cocina",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/traer/listos/servir",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"traer",
+								"listos",
+								"servir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarEstadoyTiempo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTY0OTAsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiIwNDdlY2M1MmUzOGUwMjQ5MzhhYWQzZTExMjc0ZDIxNTY5YjVkZDQ4IiwiZGF0YSI6eyJwZXJmaWwiOiJiYXJ0ZW5kZXIiLCJsZWdham8iOiIyMjIyMiJ9LCJhcHAiOiJUZXN0IEpXVCJ9.Z01kuUbLXHfPVo_TqepjiJmYlSbgpjDf8mULwUv8Abg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "en preparacion",
+									"type": "text"
+								},
+								{
+									"key": "tiempo_preparacion",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "prs_legajo",
+									"value": "22222",
+									"type": "text"
+								},
+								{
+									"key": "prs_legajo",
+									"value": "55555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/trago",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"trago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarEstado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTcyMDgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJjZXJ2ZWNlcm8iLCJsZWdham8iOiI0NDQ0NCJ9LCJhcHAiOiJUZXN0IEpXVCJ9.VOuNOKcc3f-ErOZ7UtuwR-Ji1KW2DwG1rehrCOWDeKo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "listo para servir",
+									"type": "text"
+								},
+								{
+									"key": "tiempo_preparacion",
+									"value": "30",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "legajo",
+									"value": "55555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/estado/cerveza",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"estado",
+								"cerveza"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExportarPDF",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTI5NTgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiIzMmJmM2RiZGVlNmU2MzBlMzhhNWNjZWQ4ZWM0ZDE0MDgzMjE1N2I1IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.me4px4p77wJBSilpVwWKJL9CwZqrf-JLKPZR7thdefM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:666/public/pedido/",
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/exportar/traer/pedidos",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
 							],
-							"port": "666",
 							"path": [
-								"public",
 								"pedido",
-								""
+								"exportar",
+								"traer",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerMenosVendidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/estadisticas/traer/menosvendidos",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"estadisticas",
+								"traer",
+								"menosvendidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerCancelados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/estadisticas/traer/demorados",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"estadisticas",
+								"traer",
+								"demorados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerDemorados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/estadisticas/traer/demorados",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"estadisticas",
+								"traer",
+								"demorados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TraerMasVendidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/pedido/estadisticas/traer/masvendidos",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"pedido",
+								"estadisticas",
+								"traer",
+								"masvendidos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Encuesta",
+			"item": [
+				{
+					"name": "AltaEncuesta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "puntaje_mesa",
+									"value": "10",
+									"description": "|",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_restaurante",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_mozo",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_cocinero",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "com_codigo",
+									"value": "a123a",
+									"type": "text"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "22122",
+									"type": "text"
+								},
+								{
+									"key": "opinion",
+									"value": "excelente todo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/encuesta",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"encuesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PeoresMesas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "puntaje_mesa",
+									"value": "5",
+									"description": "|",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_restaurante",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_mozo",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_cocinero",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "com_codigo",
+									"value": "z362z",
+									"type": "text"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text"
+								},
+								{
+									"key": "reseña",
+									"value": "buenisimo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/encuesta/mesa/peores",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"encuesta",
+								"mesa",
+								"peores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MejoresMesas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTAwNzUsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjFlKzE5LCJhdWQiOiJjYmJmMTgzYTMzZWI0M2E4NzhkNDQ4ODc4NDc5M2MwYmE0MjI1M2Y5IiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.XzR1NNQEbStLZWiTJ5iTuWpVaH3YFfgPpdJ7ewfo1KQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "puntaje_mesa",
+									"value": "5",
+									"description": "|",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_restaurante",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_mozo",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_cocinero",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "com_codigo",
+									"value": "z362z",
+									"type": "text"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text"
+								},
+								{
+									"key": "reseña",
+									"value": "buenisimo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/encuesta/mesa/mejores",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"encuesta",
+								"mesa",
+								"mejores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MejoresOpiniones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzgyMTc0MjgsImV4cCI6Ni4wMDAwMDAwMDAxNjM4MjJlKzE5LCJhdWQiOiI0NGU2M2JhZGUyNzA0Yzc4NGJhOGIwOTliYTFhNWI4ZjIzYjNjNjdhIiwiZGF0YSI6eyJwZXJmaWwiOiJzb2NpbyIsImxlZ2FqbyI6IjExMTExIn0sImFwcCI6IlRlc3QgSldUIn0.dSHqLyX8hVmEZh86g3O0nsmFrR7rfxGw9GMBl8BlyFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "puntaje_mesa",
+									"value": "5",
+									"description": "|",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_restaurante",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_mozo",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "puntaje_cocinero",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "com_codigo",
+									"value": "z362z",
+									"type": "text"
+								},
+								{
+									"key": "mes_codigo",
+									"value": "11223",
+									"type": "text"
+								},
+								{
+									"key": "reseña",
+									"value": "buenisimo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jfernandez-slim-php-heroku.herokuapp.com/encuesta/mejores",
+							"protocol": "https",
+							"host": [
+								"jfernandez-slim-php-heroku",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"encuesta",
+								"mejores"
 							]
 						}
 					},
