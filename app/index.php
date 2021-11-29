@@ -101,6 +101,7 @@ $app->group('/pedido', function (RouteCollectorProxy $group) {
 });
 
 $app->group('/encuesta', function (RouteCollectorProxy $group) {
+  $group->post('[/]', \EncuestaController::class . ':CargarUno');
   $group->get('/mesa/mejores[/]', \EncuestaController::class . ':TraerMejoresMesas')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
   $group->get('/mesa/peores[/]', \EncuestaController::class . ':TraerPeoresMesas')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
   $group->get('/mejores[/]', \EncuestaController::class . ':TraerMejoresNotas')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
