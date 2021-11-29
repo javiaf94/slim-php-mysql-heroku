@@ -59,11 +59,10 @@ class Pedido
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Pedido');
     }
 
-    public static function obtenerListos($prd_tipo)
+    public static function obtenerListos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, com_codigo, prd_id, prd_tipo, cantidad, prs_legajo, estado, tiempo_preparacion  FROM pedido_ped WHERE prd_tipo = :prd_tipo and estado = :estado");
-        $consulta->bindValue(':prd_tipo', $prd_tipo, PDO::PARAM_STR);
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, com_codigo, prd_id, prd_tipo, cantidad, prs_legajo, estado, tiempo_preparacion  FROM pedido_ped WHERE  estado = :estado");        
         $consulta->bindValue(':estado', "listo para servir", PDO::PARAM_STR);
 
         $consulta->execute();

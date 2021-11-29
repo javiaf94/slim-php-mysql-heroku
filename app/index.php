@@ -89,7 +89,7 @@ $app->group('/pedido', function (RouteCollectorProxy $group) {
   $group->get('[/]', \PedidoController::class . ':TraerTodos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');    
   $group->get('/{prd_tipo}', \PedidoController::class . ':TraerPendientesPorTipo')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
   $group->get('/enpreparacion/{prd_tipo}', \PedidoController::class . ':TraerEnPreparacionPorTipo')->add(\AutentificadorJWT::class . '::verificacionTokenPedidos');  
-  $group->get('/listos/{prd_tipo}', \PedidoController::class . ':TraerListos')->add(\AutentificadorJWT::class . '::verificacionTokenMozoSocio');  
+  $group->get('/traer/listos/servir', \PedidoController::class . ':TraerListos')->add(\AutentificadorJWT::class . '::verificacionTokenMozoSocio');  
   $group->get('/{com_codigo}/{mesa_codigo}', \PedidoController::class . ':TraerPorComandaMesa');    
   $group->get('/estadisticas/traer/masvendidos', \PedidoController::class . ':TraerMasVendidos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio'); 
   $group->get('/estadisticas/traer/menosvendidos', \PedidoController::class . ':TraerMenosVendidos')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');

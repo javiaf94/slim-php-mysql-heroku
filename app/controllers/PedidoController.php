@@ -81,8 +81,7 @@ class PedidoController extends Pedido implements IApiUsable
     public function TraerListos($request, $response, $args)
     {
        
-        $prd_tipo = $args['prd_tipo'];
-        $pedidos = Pedido::obtenerListos($prd_tipo);
+        $pedidos = Pedido::obtenerListos();
         if(!empty($pedidos))
         {          
             $payload = json_encode($pedidos);            
