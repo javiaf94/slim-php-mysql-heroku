@@ -59,6 +59,24 @@ class PedidoController extends Pedido implements IApiUsable
         return $response
         ->withHeader('Content-Type', 'application/json');
     }
+
+    public function TraerEnPreparacionPorTipo($request, $response, $args)
+    {
+       
+        $prd_tipo = $args['prd_tipo'];
+        $pedidos = Pedido::obtenerEnPreparacionPorTipo($prd_tipo);
+        if(!empty($pedidos))
+        {          
+            $payload = json_encode($pedidos);            
+        }
+        else
+        {
+          $payload = json_encode(array("mensaje" => "no se encotraron datos para esa busqueda"));
+        }
+        $response->getBody()->write($payload);
+        return $response
+        ->withHeader('Content-Type', 'application/json');
+    }
     
     public function TraerPorComandaMesa($request, $response, $args)
     {
