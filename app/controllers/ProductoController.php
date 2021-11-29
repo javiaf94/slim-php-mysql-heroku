@@ -61,14 +61,13 @@ class ProductoController extends Producto implements IApiUsable
     {
         $lista = Producto::obtenerTodos();
 
-        // $dir_subida = "./CSVExportados";
-        // if (!file_exists($dir_subida)) 
-        // {
-        //     mkdir($dir_subida);     
-        // }
-        // $ruta = $dir_subida . "/productos.csv";
+        $dir_subida = "./CSVExportados";
+        if (!file_exists($dir_subida)) 
+        {
+            mkdir($dir_subida);     
+        }
+        $ruta = $dir_subida . "/productos.csv";
 
-        $ruta = 'productos.csv';
         echo var_dump($ruta);
 
         foreach($lista as $prod)

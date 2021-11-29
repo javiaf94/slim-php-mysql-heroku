@@ -58,7 +58,7 @@ $app->group('/producto', function (RouteCollectorProxy $group) {
   $group->get('[/]', \ProductoController::class . ':TraerTodos');
   $group->get('/{tipo}', \ProductoController::class . ':TraerPorTipo');
   $group->post('[/]', \ProductoController::class . ':CargarUno');
-  $group->get('/csv/export', \ProductoController::class . ':ExportarCSV');//->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
+  $group->get('/csv/export', \ProductoController::class . ':ExportarCSV')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
   $group->post('/csv/import', \ProductoController::class . ':ImportarCSV')->add(\AutentificadorJWT::class . '::verificacionTokenSocio');
 });
 
